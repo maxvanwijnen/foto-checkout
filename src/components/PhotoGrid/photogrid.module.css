@@ -1,0 +1,11 @@
+.photo-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-basis:800px;
+    flex-grow: 1;
+    padding: 20px;
+
+
+}

@@ -1,0 +1,23 @@
+
+
+.basket-line {
+    border-bottom: 1px solid #f4f4f4;
+    padding:10px 0px;
+}
+
+.photo-thumb {
+    width: 50px;
+}
+
+.options-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.options-wrapper button {
+    height: 30px;
+}
+
+.title-wrapper {
+    padding:5px 0px;
+    font-size: 12px;
+}

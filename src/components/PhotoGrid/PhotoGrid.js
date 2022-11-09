@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import PhotoTile from "../PhotoTile/PhotoTile";
 import css from './photogrid.module.css';
+import {PhotoshootContext} from "../../context/PhotoshootContext";
 
 const photoArray = [
     {  src: "Strandshoot-22-mei-2022-040.jpg", topPick: false },
@@ -18,9 +19,12 @@ const photoArray = [
 
 export function PhotoGrid() {
 
+    const {logout} = useContext(PhotoshootContext);
+
     return (
 
             <div className={css['photo-grid']}>
+                <button onClick={logout}>Uitloggen</button>
                 {photoArray.map((photo) => (
                     <PhotoTile
 

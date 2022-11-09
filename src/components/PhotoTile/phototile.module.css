@@ -15,9 +15,10 @@
 
 .photo-tile-title {
     text-transform: lowercase;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
     font-weight: bold;
     font-size: 13px;
+    text-align: center;
 }
 .preview-pic-wrapper {
     width: 100%;

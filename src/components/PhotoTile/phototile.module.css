@@ -85,3 +85,26 @@
 .button-wrapper .add-button {
     background-color: #292929;
 }
+
+@media only screen and (max-width: 800px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .preview-pic {
+        max-width: 100%;
+    }
+    .photo-tile {
+        width: 48%;
+    }
+    .preview-pic-wrapper {
+        width: 100%;
+        height: auto;
+        max-height: 160px;
+        /* height: 160px; */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+}

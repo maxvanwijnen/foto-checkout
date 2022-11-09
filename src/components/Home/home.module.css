@@ -5,3 +5,9 @@ background:#f7f7f7;
 
     justify-content: space-between;
 }
+
+@media only screen and (max-width: 800px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+}

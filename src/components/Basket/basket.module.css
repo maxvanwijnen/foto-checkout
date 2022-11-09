@@ -24,3 +24,45 @@
     margin-bottom: 10px;
     border-radius: 4px;
 }
+.basket-line-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.extend-button {
+    display: none;
+}
+
+@media only screen and (max-width: 800px){
+    .basket-wrapper {
+        width:100%;
+        position: fixed;
+        height:auto;
+        max-height: 200px;
+        bottom:0px;
+        overflow-y:scroll;
+        border-top:1px solid #d4d4d4;
+    }
+
+    .basket-line-wrapper {
+        display: none;
+    }
+    .basket-wrapper.extend-it {
+        max-height:100vh;
+    }
+
+    .basket-line-wrapper.extended {
+         display: flex;
+        flex-direction: column;
+     }
+
+
+    .basket-title {
+        display:none;
+    }
+
+    .extend-button {
+        display: block;
+        margin:0px;
+    }
+}

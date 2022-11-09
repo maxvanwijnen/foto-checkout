@@ -11,8 +11,6 @@
     flex-basis:800px;
     flex-grow: 1;
     padding: 20px;
-
-
 }
 
 .logo   {
@@ -25,4 +23,12 @@
     justify-content: flex-end;
     width: 100%;
     padding:23px 40px 10px  0px;
+}
+
+@media only screen and (max-width: 800px) {
+    .photo-grid {
+        flex-basis:auto;
+        padding-bottom: 200px;
+    }
+
 }

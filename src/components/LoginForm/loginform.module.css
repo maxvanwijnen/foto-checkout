@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container form {
+    margin-top:30px;
+}
+.container form input{
+    padding:15px;
+    border-radius: 3px;
+    border:1px solid #d9d9d9;
+    margin-right: 20px;
+    width: 300px;
+
+}
+.container form  button{
+    padding:15px;
+    border-radius: 3px;
+    border:0px;
+    height: 100%;
+    background-color: aliceblue;
+}
+
+
+
+.logo   {
+    width: 400px;
+    margin-top:-140px;
+}

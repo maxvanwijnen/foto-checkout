@@ -1,12 +1,17 @@
-import react, {createContext, useState, useEffect} from 'react';
+import react, {createContext, useState, useEffect, useContext} from 'react';
 import {useNavigate} from 'react-router';
+import {PhotoshootContext} from "./PhotoshootContext";
 
 
 export const BasketContext = createContext({});
 
+
+
 function BasketContextProvider({children}){
     const [photoList, setPhotoList] = useState([])
     const [totalPrice, setTotalPrice] = useState();
+    const {packagePrices, photoPrice} = useContext(PhotoshootContext);
+
 
     const [basket,setBasket] = useState({
         photoList:[],
@@ -24,10 +29,23 @@ function BasketContextProvider({children}){
     },[photoList]);
 
     useEffect(()=>{
+        const remainder = photoList.length%5;
+        const closestPackage = (photoList.length-remainder)/5;
 
+
+        let basketWarning = null;
+        console.log('ooooooooo')
+        console.log(totalPrice)
+        console.log(closestPackage)
+        console.log(packagePrices[closestPackage]);
+        console.log('ooooooooo')
+        if (totalPrice > packagePrices[closestPackage]){
+            basketWarning = 'Let op! het is goedkoper te upgraden het volgende paket';
+        }
         setBasket({
             ...basket,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            basketWarning: basketWarning
         })
 
 
@@ -39,13 +57,35 @@ function BasketContextProvider({children}){
 
     const calculatePrice = () => {
 
+
         if (photoList.length <= 5){
-            setTotalPrice(89);
-        } else if (photoList.length <= 10){
-            setTotalPrice(139);
-        } else if (photoList.length <= 15) {
-            setTotalPrice(189);
+            console.log(packagePrices[0])
+            setTotalPrice(packagePrices[0]);
+        } else {
+            const remainder = photoList.length%5;
+
+            if (photoList.length <= 15){
+                //exacte pakket is gekozen
+                if(remainder == 0){
+                    setTotalPrice(packagePrices[(photoList.length/5)-1])
+                }
+                else {
+                    const closestPackage = (photoList.length-remainder)/5;
+                    const extraCosts = remainder * photoPrice;
+                    setTotalPrice(packagePrices[closestPackage-1] + extraCosts);
+                }
+            }
+
+
+            if (photoList.length > 15){
+                const singlePhotos = photoList.length-15
+                const extraCosts = singlePhotos * photoPrice;
+                setTotalPrice(packagePrices[2]+extraCosts);
+            }
+
+
         }
+
 
     }
 

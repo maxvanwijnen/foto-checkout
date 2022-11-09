@@ -9,12 +9,17 @@ export const PriceSummary = () => {
         <div className={css['price-summary']}>
             <h3>Prijs samenvatting</h3>
             <table>
-                <tr>
+                <thead><tr>
                     <th>Aantal foto's</th><th>Prijs</th>
                 </tr>
+                </thead>
+                <tbody>
+
                 <tr>
                     <td>{basket.photoList.length}</td><td>{basket.totalPrice} euro</td>
                 </tr>
+                </tbody>
+
 
             </table>
 

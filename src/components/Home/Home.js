@@ -2,12 +2,15 @@ import React from "react";
 import { PhotoGrid } from './../PhotoGrid/PhotoGrid';
 import { Basket } from '../Basket/Basket';
 import css from './home.module.css';
+import { Header } from './../Header/Header';
+
 
 export function Home (){
 
     return (
         <div className="container">
-            <h1>Home</h1>
+            <Header />
+
             <div className={css['content-wrapper']}>
                 <PhotoGrid />
                 <Basket />

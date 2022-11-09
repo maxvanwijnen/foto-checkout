@@ -19,6 +19,7 @@ export const Basket = () => {
                     (photo) => <BasketLine key={photo.src} photo={photo} />
                 )}
                     <PriceSummary />
+                    {basket.basketWarning  && <div className={css['basket-warning']}>{basket.basketWarning}</div>}
                     <button className={css['next-button']}>Volgende</button>
                 </>
             }

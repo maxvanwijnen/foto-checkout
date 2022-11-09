@@ -24,9 +24,8 @@ function PhotoshootContextProvider({children}){
 
     useEffect(()=>{
 
-        if (localStorage.getItem('isAuth') == 'true')
+        if (localStorage.getItem('clientId') == photoshoot.clientId)
         {
-
             setAuth({
                 isAuth:true,
                 status: 'done'
@@ -48,7 +47,7 @@ function PhotoshootContextProvider({children}){
     const login = (enteredCode) => {
 
         if (enteredCode == photoshoot.clientId){
-            localStorage.setItem('isAuth',true);
+            localStorage.setItem('clientId',enteredCode);
             setAuth({
                 ...auth,
                 isAuth: true
@@ -60,7 +59,7 @@ function PhotoshootContextProvider({children}){
     const logout = () => {
 
 
-            localStorage.setItem('isAuth',false);
+            localStorage.removeItem('clientId');
             setAuth({
                 ...auth,
                 isAuth: false

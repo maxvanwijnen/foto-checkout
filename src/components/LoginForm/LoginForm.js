@@ -14,15 +14,15 @@ export function LoginForm (){
 
     }
     return (
-        <div className="container">
-            <h1>Home</h1>
-            <div className={css['content-wrapper']}>
+        <div className={css['container']}>
+
+                <img className={css['logo']} src="https://www.maxvanwijnen.nl/www/images/logo-maxvanwijnen-fotografie-black.png" />
                 <form onSubmit={(e)=>submitForm(e)}>
-                    <input type="text" name="loginCode"/>
+                    <input type="text" name="loginCode" placeholder="Vul hier je code in"/>
                     <button type="submit">Inloggen</button>
                 </form>
 
-            </div>
+
 
         </div>
     );

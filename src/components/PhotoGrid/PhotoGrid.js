@@ -34,6 +34,7 @@ export function PhotoGrid() {
 
     const {logout} = useContext(PhotoshootContext);
 
+
     return (
 
             <div className={css['photo-grid-wrapper']}>

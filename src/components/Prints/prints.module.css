@@ -1,0 +1,13 @@
+.print {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.print-photos  {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top:20px;
+}

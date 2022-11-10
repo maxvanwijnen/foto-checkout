@@ -6,10 +6,13 @@ import { Test } from './pages.js';
 import { Home } from './components/Home/Home';
 import { LoginForm } from './components/LoginForm/LoginForm';
 import {PhotoshootContext} from "./context/PhotoshootContext";
+import { Prints } from './components/Prints/Prints';
+
 
 
 function App() {
     const {isAuth, login} = useContext(PhotoshootContext);
+
 
     console.log('asdadad')
     console.log(isAuth)
@@ -22,7 +25,7 @@ function App() {
                <Route path="/" element={<LoginForm />}/>
            }
 
-           <Route path="test" element={ <Test /> }/>
+           <Route path="/afdrukken" element={ <Prints /> }/>
        </Routes>
    </>
 

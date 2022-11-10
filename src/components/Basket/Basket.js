@@ -3,12 +3,14 @@ import {BasketContext} from "../../context/BasketContext";
 import css from './basket.module.css';
 import BasketLine from "./BasketLine/BasketLine";
 import PriceSummary from "./PriceSummary/PriceSummary.module";
+import {useNavigate} from "react-router";
 
 export const Basket = () => {
     const { basket } =useContext(BasketContext);
 
     const [showBasketLines,toggleShowBasketLines] = useState(false);
 
+    const navigate = useNavigate();
 
 
 
@@ -31,7 +33,7 @@ export const Basket = () => {
 
                     <PriceSummary />
                     {basket.basketWarning  && <div className={css['basket-warning']}>{basket.basketWarning}</div>}
-                    <button className={css['next-button']}>Volgende</button>
+                    <button className={css['next-button']} onClick={()=>navigate('/afdrukken')}>Volgende</button>
                 </>
             }
             {

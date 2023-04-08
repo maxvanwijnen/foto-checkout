@@ -16,7 +16,7 @@ export function LoginForm (){
     return (
         <div className={css['container']}>
 
-                <img className={css['logo']} src="https://www.maxvanwijnen.nl/www/images/logo-maxvanwijnen-fotografie-black.png" />
+                <img className={css['logo']} src="https://dev4.maxvanwijnen.nl/images/logo-maxvanwijnen-fotografie-black.png" />
                 <form onSubmit={(e)=>submitForm(e)}>
                     <input type="text" name="loginCode" placeholder="Vul hier je code in"/>
                     <button type="submit">Inloggen</button>

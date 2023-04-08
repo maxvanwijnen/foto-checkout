@@ -10,7 +10,7 @@ export const BasketContext = createContext({});
 function BasketContextProvider({children}){
     const [photoList, setPhotoList] = useState([])
     const [totalPrice, setTotalPrice] = useState();
-    const {packagePrices, photoPrice} = useContext(PhotoshootContext);
+    const {packagePrices, photoPrice, customerData} = useContext(PhotoshootContext);
 
 
     const [basket,setBasket] = useState({

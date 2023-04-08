@@ -33,9 +33,9 @@ export const PhotoTile = ({addToBasket, photo}) => {
 
     return (
         <div className={css['photo-tile']} key={photo.src}>
-            <div className={css['photo-tile-title']}>{photo.src}</div>
+            <div className={css['photo-tile-title']}>{photo.name}</div>
             <div className={css['preview-pic-wrapper']}>
-                    <img src={"https://www.maxvanwijnen.nl/www/galleries/20220522/" + photo.src}
+                    <img src={photo.src}
                                      alt="preview picture"
                                      className={css['preview-pic']}
                                      onClick={() => funcAddPhoto(photo)}
@@ -44,7 +44,7 @@ export const PhotoTile = ({addToBasket, photo}) => {
                     <div className={css['preview-pic-magnified-wrapper']}>
                         <div className={css['preview-pic-magnified-container']}>
                             <button onClick={()=>toggleMagnified(!isMagnified)} className={css['close-button']}>✖ Sluiten</button>
-                            <img src={"https://www.maxvanwijnen.nl/www/galleries/20220522/" + photo.src}
+                            <img src={photo.src}
                                  alt="preview picture"
                                  className={css['preview-pic-magnified']}
                                  onClick={() => funcAddPhoto(photo)}

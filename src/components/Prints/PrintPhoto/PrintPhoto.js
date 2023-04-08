@@ -20,7 +20,7 @@ export const PrintPhoto = ({ photo}) => {
             <div className={css['photo-tile-title']}>{photo.src}</div>
             <div className={css['prints-content-wrapper']}>
                 <div className={css['preview-pic-wrapper']}>
-                    <img src={"https://www.maxvanwijnen.nl/www/galleries/20220522/" + photo.src}
+                    <img src={photo.src}
                          alt="preview picture"
                          className={css['preview-pic']}
                          onClick={() => funcAddPhoto(photo)}

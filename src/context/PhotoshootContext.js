@@ -1,6 +1,7 @@
 import react, {createContext, useState, useEffect} from 'react';
 
 import { useNavigate } from "react-router";
+import axios from 'axios';
 
 export const PhotoshootContext = createContext({});
 
@@ -9,6 +10,11 @@ function PhotoshootContextProvider({children}){
         isAuth:false,
         status:'pending'
     });
+
+    const [imageList, setImageList] = useState([]);
+    const [customerData, setCustomerData] = useState({});
+    const [code, setCode] = useState([]);
+
 
     const [photoshoot, setPhotoshoot] =  useState({
         clientId:123,
@@ -24,12 +30,9 @@ function PhotoshootContextProvider({children}){
 
     useEffect(()=>{
 
-        if (localStorage.getItem('clientId') == photoshoot.clientId)
+        if (localStorage.getItem(code))
         {
-            setAuth({
-                isAuth:true,
-                status: 'done'
-            })
+            login(localStorage.getItem(code));
         }
         else {
             setAuth({
@@ -40,11 +43,50 @@ function PhotoshootContextProvider({children}){
 
     },[]);
 
+    useEffect(()=>{
+        console.log(imageList)
+        try {
+            if (imageList.length > 0){
+                setAuth({
+                    ...auth,
+                    isAuth: true
+                })
+            }
+        }
+        catch {
+            console.log();
+        }
+
+    },[imageList])
+
+
+    const getImageData = async (enteredCode) => {
+        try {
+            const response = await axios.get(`https://dev4.maxvanwijnen.nl/getImages.php?id=${enteredCode}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
 
+    const login = async (enteredCode) => {
+        const imageData = await getImageData(enteredCode);
+        console.log(imageData)
+        setCode(enteredCode);
+        setImageList(imageData.images);
+        setPhotoshoot({...photoshoot,packagePrices: [imageData.customer.basic,imageData.customer.premium, imageData.customer.deluxe]})
+        setCustomerData(imageData.customer);
+        // Doe iets met de afbeeldingsgegevens, bijvoorbeeld opslaan in de lokale staat
+    };
 
-    const login = (enteredCode) => {
+   /* const login = (enteredCode) => {
 
         if (enteredCode == photoshoot.clientId){
             localStorage.setItem('clientId',enteredCode);
@@ -55,7 +97,9 @@ function PhotoshootContextProvider({children}){
         }
 
 
-    }
+
+
+    }*/
     const logout = () => {
 
 
@@ -72,7 +116,9 @@ function PhotoshootContextProvider({children}){
         ...photoshoot,
         isAuth:auth.isAuth,
         login,
-        logout
+        logout,
+        imageList,
+        customerData
     }
 
 

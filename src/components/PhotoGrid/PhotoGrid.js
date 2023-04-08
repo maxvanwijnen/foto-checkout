@@ -3,7 +3,8 @@ import PhotoTile from "../PhotoTile/PhotoTile";
 import css from './photogrid.module.css';
 import {PhotoshootContext} from "../../context/PhotoshootContext";
 
-const photoArray = [
+
+/*const photoArray = [
     {  src: "Strandshoot-22-mei-2022-040.jpg", topPick: false },
     { src: "Strandshoot-22-mei-2022-110.jpg", topPick: false },
     { src: "Strandshoot-22-mei-2022-188.jpg", topPick: true },
@@ -24,7 +25,7 @@ const photoArray = [
     { src: "Strandshoot-22-mei-2022-370.jpg", topPick: false }
 
 
-];
+];*/
 
 
 
@@ -32,8 +33,10 @@ const photoArray = [
 
 export function PhotoGrid() {
 
-    const {logout} = useContext(PhotoshootContext);
+    let photoArray = [];
+    const {logout, imageList} = useContext(PhotoshootContext);
 
+    photoArray = imageList;
 
     return (
 

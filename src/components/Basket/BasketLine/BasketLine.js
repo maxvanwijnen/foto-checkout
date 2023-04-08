@@ -12,7 +12,7 @@ export const BasketLine = ({photo}) => {
                 {photo.src}
             </div>
             <div className={css['options-wrapper']}>
-                <img src={"https://www.maxvanwijnen.nl/www/galleries/20220522/" + photo.src}
+                <img src={photo.src}
                      alt="preview picture"
                      className={css['photo-thumb']}
                 />

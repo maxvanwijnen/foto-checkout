@@ -9,7 +9,7 @@ export const BasketLine = ({photo}) => {
     return (
         <div className={css['basket-line']}>
             <div className={css['title-wrapper']}>
-                {photo.src}
+                {photo.name}
             </div>
             <div className={css['options-wrapper']}>
                 <img src={photo.src}

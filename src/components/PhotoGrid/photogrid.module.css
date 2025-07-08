@@ -3,6 +3,25 @@
     flex-grow: 1;
 }
 
+/* Masonry grid styles */
+.masonry-grid {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.masonry-column {
+    padding-left: 15px; /* gutter size */
+    background-clip: padding-box;
+}
+
+.masonry-item {
+    margin-bottom: 15px;
+}
+
+/* Keep the old style for reference but it's not being used anymore */
 .photo-grid {
     display: flex;
     flex-direction: row;
@@ -30,5 +49,16 @@
         flex-basis:auto;
         padding-bottom: 200px;
     }
-
+    
+    .masonry-grid {
+        padding: 10px;
+    }
+    
+    .masonry-column {
+        padding-left: 10px;
+    }
+    
+    .masonry-item {
+        margin-bottom: 10px;
+    }
 }

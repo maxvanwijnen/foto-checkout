@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import PhotoTile from "../PhotoTile/PhotoTile";
 import css from './photogrid.module.css';
 import {PhotoshootContext} from "../../context/PhotoshootContext";
+import Masonry from 'react-masonry-css';
 
 
 /*const photoArray = [
@@ -42,20 +43,25 @@ export function PhotoGrid() {
 
             <div className={css['photo-grid-wrapper']}>
                 <div className={css['info-bar']}> {photoArray.length } foto's geladen</div>
-                <div className={css['photo-grid']}>
-
+                <Masonry
+                    breakpointCols={{
+                        default: 3,
+                        1100: 3,
+                        800: 2,
+                        500: 1
+                    }}
+                    className={css['masonry-grid']}
+                    columnClassName={css['masonry-column']}
+                >
                     {photoArray.map((photo) => (
-                        <PhotoTile
-
-                            photo={photo}
-                            key={photo.src}
-
-                        />
-
-                    ))
-                    }
-
-                </div>
+                        <div className={css['masonry-item']} key={photo.src}>
+                            <PhotoTile
+                                photo={photo}
+                                key={photo.src}
+                            />
+                        </div>
+                    ))}
+                </Masonry>
             </div>
 
     );

@@ -12,9 +12,36 @@
 .options-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
-.options-wrapper button {
-    height: 30px;
+
+.remove-button {
+    background-color: white;
+    color: #292929;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.remove-button:hover {
+    background-color: #ffeeee;
+    color: #dd5555;
+}
+
+.remove-button svg {
+    stroke: #666;
+}
+
+.remove-button:hover svg {
+    stroke: #dd5555;
 }
 
 .title-wrapper {

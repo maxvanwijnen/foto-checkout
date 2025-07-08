@@ -178,35 +178,106 @@
 }
 .selected-wrapper {
     display: flex;
+    align-items: center;
 }
+
 .selected-label {
-    font-size:12px;
-    background-color:#f2f2f2;
-    padding:10px;
-    text-transform: lowercase;
-    color:#7EA16B;
-    margin-left:3px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #f2f2f2;
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: #7EA16B;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 2px solid #7EA16B;
+}
+
+.selected-label svg {
+    stroke: #7EA16B;
+    margin-right: 8px;
 }
 .button-wrapper {
-    padding:10px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.button-wrapper button {
-    padding:10px;
-    text-transform: lowercase;
-    font-weight: bold;
-    font-size: 12px;
-
-    border:0px;
-    color: white;
-    border-radius: 2px;
+.magnify-button {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #292929;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.button-wrapper .add-button {
-    background-color: #292929;
+.magnify-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.grid-add-button {
+    background-color: white;
+    color: #292929;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.grid-add-button:hover {
+    background-color: #f2f2f2;
+}
+
+.grid-add-button svg {
+    margin-right: 8px;
+}
+
+.remove-button {
+    background-color: white;
+    color: #292929;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 8px;
+    padding: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.remove-button:hover {
+    background-color: #ffeeee;
+    color: #dd5555;
+}
+
+.remove-button svg {
+    stroke: #666;
+}
+
+.remove-button:hover svg {
+    stroke: #dd5555;
 }
 
 @media only screen and (max-width: 800px) {

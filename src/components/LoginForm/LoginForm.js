@@ -6,6 +6,7 @@ import {PhotoshootContext} from "../../context/PhotoshootContext";
 export function LoginForm (){
 
     const {login} = useContext(PhotoshootContext);
+    console.log('dit is lokaal')
 
     const submitForm = (e) => {
         e.preventDefault();

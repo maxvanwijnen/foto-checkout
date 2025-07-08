@@ -1,12 +1,38 @@
 import React, {useContext, useEffect, useState} from "react";
 import {BasketContext} from "../../context/BasketContext";
+import {PhotoshootContext} from "../../context/PhotoshootContext";
 import css from './phototile.module.css';
 
 export const PhotoTile = ({addToBasket, photo}) => {
 
     const {basket, funcAddPhoto, removePhoto} = useContext(BasketContext);
+    const {imageList} = useContext(PhotoshootContext);
     const [isSelected, toggleIsSelected] = useState(false);
     const [isMagnified, toggleMagnified] = useState(false);
+    const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
+    // Handle keyboard navigation when magnified view is open
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (isMagnified) {
+                if (event.key === 'ArrowLeft') {
+                    goToPreviousPhoto();
+                } else if (event.key === 'ArrowRight') {
+                    goToNextPhoto();
+                } else if (event.key === 'Escape') {
+                    toggleMagnified(false);
+                }
+            }
+        };
+
+        // Add event listener when component mounts or isMagnified changes
+        document.addEventListener('keydown', handleKeyDown);
+        
+        // Clean up event listener when component unmounts or isMagnified changes
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isMagnified, currentPhotoIndex]);
 
     const check = basket.photoList.find(photoFromList =>
         photoFromList.src == photo.src
@@ -20,6 +46,16 @@ export const PhotoTile = ({addToBasket, photo}) => {
         toggleIsSelected(true)
     }
 
+    // Find the index of the current photo in the imageList
+    useEffect(() => {
+        if (imageList && imageList.length > 0) {
+            const index = imageList.findIndex(img => img.src === photo.src);
+            if (index !== -1) {
+                setCurrentPhotoIndex(index);
+            }
+        }
+    }, [photo, imageList]);
+
 
 
     function photoTileAddHandler() {
@@ -29,6 +65,20 @@ export const PhotoTile = ({addToBasket, photo}) => {
     function photoTileRemoveHandler() {
         removePhoto(photo);
         toggleIsSelected(false);
+    }
+
+    function goToPreviousPhoto() {
+        if (imageList && imageList.length > 0) {
+            const newIndex = currentPhotoIndex > 0 ? currentPhotoIndex - 1 : imageList.length - 1;
+            setCurrentPhotoIndex(newIndex);
+        }
+    }
+
+    function goToNextPhoto() {
+        if (imageList && imageList.length > 0) {
+            const newIndex = currentPhotoIndex < imageList.length - 1 ? currentPhotoIndex + 1 : 0;
+            setCurrentPhotoIndex(newIndex);
+        }
     }
 
     return (
@@ -43,14 +93,32 @@ export const PhotoTile = ({addToBasket, photo}) => {
                 {isMagnified &&
                     <div className={css['preview-pic-magnified-wrapper']}>
                         <div className={css['preview-pic-magnified-container']}>
-                            <button onClick={()=>toggleMagnified(!isMagnified)} className={css['close-button']}>✖ Sluiten</button>
-                            <img src={photo.src}
-                                 alt="preview picture"
-                                 className={css['preview-pic-magnified']}
-                                 onClick={() => funcAddPhoto(photo)}
-                            />
+                            <button onClick={()=>toggleMagnified(!isMagnified)} className={css['close-button']} aria-label="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                            <div className={css['navigation-controls']}>
+                                <button onClick={goToPreviousPhoto} className={css['nav-arrow']} aria-label="Previous photo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <div className={css['magnified-image-container']}>
+                                    <img src={imageList && imageList.length > 0 ? imageList[currentPhotoIndex].src : photo.src}
+                                         alt="preview picture"
+                                         className={css['preview-pic-magnified']}
+                                         onClick={() => funcAddPhoto(imageList && imageList.length > 0 ? imageList[currentPhotoIndex] : photo)}
+                                    />
+                                </div>
+                                <button onClick={goToNextPhoto} className={css['nav-arrow']} aria-label="Next photo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-
                     </div>
                     }
 

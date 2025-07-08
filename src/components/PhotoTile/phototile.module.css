@@ -45,16 +45,94 @@
 .preview-pic-magnified-container {
     display: flex;
     flex-direction: column;
-    max-width: 1000px;
+    max-width: 1300px;
     width: 90%;
     margin: 10px auto;
+    height:90%;
 }
 .preview-pic-magnified-container .close-button {
-    margin-bottom: 10px;
-    padding: 10px;
-    background: white;
-    border: 1px solid;
-    border-radius: 3px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: background-color 0.3s ease;
+}
+
+.preview-pic-magnified-container .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.preview-pic-magnified-container .close-button svg {
+    color: #292929;
+    stroke-width: 2px;
+}
+.magnified-image-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.preview-pic-magnified-container img {
+    height: auto;
+    max-height: 100%;
+    width: auto;
+    max-width: calc(100% - 100px);
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.navigation-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.nav-arrow {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #292929;
+    border: none;
+    border-radius: 50%;
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 15px;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.nav-arrow svg {
+    stroke-width: 2px;
+    color: #292929;
+    width: 24px;
+    height: 24px;
+}
+
+.nav-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .selected-wrapper {
     display: flex;
@@ -108,6 +186,12 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+
+    .preview-pic-magnified-container img {
+        width:100%;
+        height:fit-content;
+
     }
 
 }

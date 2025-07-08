@@ -62,7 +62,7 @@ function PhotoshootContextProvider({children}){
 
     const getImageData = async (enteredCode) => {
         try {
-            const response = await axios.get(`https://dev4.maxvanwijnen.nl/getImages.php?id=${enteredCode}`, {
+            const response = await axios.get(`/getImages.php?id=${enteredCode}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'

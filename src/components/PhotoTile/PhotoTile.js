@@ -109,8 +109,58 @@ export const PhotoTile = ({addToBasket, photo}) => {
                                     <img src={imageList && imageList.length > 0 ? imageList[currentPhotoIndex].src : photo.src}
                                          alt="preview picture"
                                          className={css['preview-pic-magnified']}
-                                         onClick={() => funcAddPhoto(imageList && imageList.length > 0 ? imageList[currentPhotoIndex] : photo)}
                                     />
+                                    {imageList && imageList.length > 0 ? (
+                                        // Check if the current photo is in the basket
+                                        basket.photoList.find(p => p.src === imageList[currentPhotoIndex].src) ? (
+                                            <button 
+                                                onClick={() => removePhoto(imageList[currentPhotoIndex])}
+                                                className={`${css['add-to-basket-button']} ${css['added']}`}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                </svg>
+                                                <span>Toegevoegd</span>
+                                            </button>
+                                        ) : (
+                                            <button 
+                                                onClick={() => funcAddPhoto(imageList[currentPhotoIndex])}
+                                                className={css['add-to-basket-button']}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                </svg>
+                                                <span>Toevoegen</span>
+                                            </button>
+                                        )
+                                    ) : (
+                                        <button 
+                                            onClick={() => funcAddPhoto(photo)}
+                                            className={isSelected ? `${css['add-to-basket-button']} ${css['added']}` : css['add-to-basket-button']}
+                                        >
+                                            {isSelected ? (
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                    </svg>
+                                                    <span>Toegevoegd</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                    </svg>
+                                                    <span>Toevoegen</span>
+                                                </>
+                                            )}
+                                        </button>
+                                    )}
                                 </div>
                                 <button onClick={goToNextPhoto} className={css['nav-arrow']} aria-label="Next photo">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

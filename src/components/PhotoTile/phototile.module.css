@@ -79,10 +79,52 @@
 .magnified-image-container {
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
     overflow: hidden;
+    position: relative;
+}
+
+.add-to-basket-button {
+    position: relative;
+    margin-top: 20px;
+    background-color: white;
+    color: #292929;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-basket-button:hover {
+    background-color: #f2f2f2;
+}
+
+.add-to-basket-button svg {
+    margin-right: 8px;
+}
+
+.add-to-basket-button span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.add-to-basket-button.added {
+    background-color: #f2f2f2;
+    border: 2px solid #7EA16B;
+    color: #7EA16B;
+}
+
+.add-to-basket-button.added svg {
+    stroke: #7EA16B;
 }
 
 .preview-pic-magnified-container img {

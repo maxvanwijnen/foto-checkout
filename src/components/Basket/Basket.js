@@ -23,17 +23,23 @@ export const Basket = () => {
                 {/* Title now moved to header */}
                     {!showBasketLines && <p className={css['extend-button']} onClick={()=>toggleShowBasketLines(!showBasketLines)}>[+] gekozen foto's tonen</p>}
                     {showBasketLines && <p className={css['extend-button']} onClick={()=>toggleShowBasketLines(!showBasketLines)}>[-] gekozen foto's verbergen</p>}
-                    <section className={`${css['basket-line-wrapper']} ${showBasketLines && css['extended'] }`}>
-
-                        <h3>Foto selectie</h3>
-                        {basket.photoList.map(
-                            (photo) => <BasketLine key={photo.src} photo={photo} />
-                        )}
-                    </section>
-
-                    <PriceSummary />
-                    {basket.basketWarning  && <div className={css['basket-warning']}>{basket.basketWarning}</div>}
-                    <button className={css['next-button']} onClick={()=>navigate('/afdrukken')}>Volgende</button>
+                    
+                    {/* Scrollable photos section */}
+                    <div className={css['scrollable-content']}>
+                        <section className={`${css['basket-line-wrapper']} ${showBasketLines && css['extended'] }`}>
+                            <h3>Foto selectie</h3>
+                            {basket.photoList.map(
+                                (photo) => <BasketLine key={photo.src} photo={photo} />
+                            )}
+                        </section>
+                    </div>
+                    
+                    {/* Fixed bottom section */}
+                    <div className={css['fixed-bottom']}>
+                        <PriceSummary />
+                        {basket.basketWarning && <div className={css['basket-warning']}>{basket.basketWarning}</div>}
+                        <button className={css['next-button']} onClick={()=>navigate('/afdrukken')}>Volgende</button>
+                    </div>
                 </>
             }
             {

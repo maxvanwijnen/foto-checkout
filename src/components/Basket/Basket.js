@@ -8,7 +8,7 @@ import {useNavigate} from "react-router";
 export const Basket = () => {
     const { basket } =useContext(BasketContext);
 
-    const [showBasketLines,toggleShowBasketLines] = useState(false);
+    const [showBasketLines, toggleShowBasketLines] = useState(false);
 
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const Basket = () => {
             {
                 basket.photoList.length > 0 &&
                 <>
-                <h2 className={css['basket-title']}>Samenvatting</h2>
+                {/* Title now moved to header */}
                     {!showBasketLines && <p className={css['extend-button']} onClick={()=>toggleShowBasketLines(!showBasketLines)}>[+] gekozen foto's tonen</p>}
                     {showBasketLines && <p className={css['extend-button']} onClick={()=>toggleShowBasketLines(!showBasketLines)}>[-] gekozen foto's verbergen</p>}
                     <section className={`${css['basket-line-wrapper']} ${showBasketLines && css['extended'] }`}>
@@ -39,7 +39,6 @@ export const Basket = () => {
             {
                 basket.photoList.length === 0 &&
                 <h2>Nog geen foto's geselecteerd</h2>
-
             }
 
         </div>

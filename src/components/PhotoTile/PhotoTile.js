@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
+import ReactDOM from "react-dom";
 import {BasketContext} from "../../context/BasketContext";
 import {PhotoshootContext} from "../../context/PhotoshootContext";
 import css from './phototile.module.css';
 
 export const PhotoTile = ({addToBasket, photo}) => {
-
     const {basket, funcAddPhoto, removePhoto} = useContext(BasketContext);
     const {imageList} = useContext(PhotoshootContext);
     const [isSelected, toggleIsSelected] = useState(false);
@@ -81,106 +81,130 @@ export const PhotoTile = ({addToBasket, photo}) => {
         }
     }
 
+    // Render magnified view in portal when active
+    const magnifiedPortal = isMagnified ? ReactDOM.createPortal(
+        <div className={css['preview-pic-magnified-wrapper']} onClick={(e) => {
+            if (e.target === e.currentTarget) toggleMagnified(false);
+        }}>
+            <div className={css['preview-pic-magnified-container']}>
+                <div className={css['file-info-bar']}>
+                    <div className={css['magnified-filename']}>
+                        {imageList && imageList.length > 0 ? 
+                            (imageList[currentPhotoIndex].name || 'Foto ' + (currentPhotoIndex + 1)) : 
+                            (photo.name || 'Foto')}
+                    </div>
+                </div>
+                <div className={css['navigation-controls']}>
+                    <button 
+                        onClick={() => toggleMagnified(false)} 
+                        className={css['close-button']}
+                        aria-label="Close"
+                    >
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="24" 
+                            height="24" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <button onClick={goToPreviousPhoto} className={css['nav-arrow']} aria-label="Previous photo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div className={css['magnified-image-container']}>
+                        <img 
+                            src={imageList && imageList.length > 0 ? imageList[currentPhotoIndex].src : photo.src}
+                            alt="magnified preview"
+                            className={css['preview-pic-magnified']}
+                        />
+                        {imageList && imageList.length > 0 ? (
+                            basket.photoList.find(p => p.src === imageList[currentPhotoIndex].src) ? (
+                                <button 
+                                    onClick={() => removePhoto(imageList[currentPhotoIndex])}
+                                    className={`${css['add-to-basket-button']} ${css['added']}`}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                    </svg>
+                                    <span>Toegevoegd</span>
+                                </button>
+                            ) : (
+                                <button 
+                                    onClick={() => funcAddPhoto(imageList[currentPhotoIndex])}
+                                    className={css['add-to-basket-button']}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                    </svg>
+                                    <span>Toevoegen</span>
+                                </button>
+                            )
+                        ) : (
+                            <button 
+                                onClick={() => funcAddPhoto(photo)}
+                                className={isSelected ? `${css['add-to-basket-button']} ${css['added']}` : css['add-to-basket-button']}
+                            >
+                                {isSelected ? (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                        </svg>
+                                        <span>Toegevoegd</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                        </svg>
+                                        <span>Toevoegen</span>
+                                    </>
+                                )}
+                            </button>
+                        )}
+                    </div>
+                    <button onClick={goToNextPhoto} className={css['nav-arrow']} aria-label="Next photo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>,
+        document.body
+    ) : null;
+
     return (
         <div className={css['photo-tile']} key={photo.src}>
             <div className={css['photo-tile-title']}>{photo.name}</div>
             <div className={css['preview-pic-wrapper']}>
-                    <img src={photo.src}
-                                     alt="preview picture"
-                                     className={css['preview-pic']}
-                                     onClick={() => funcAddPhoto(photo)}
+                <img src={photo.src}
+                     alt="preview picture"
+                     className={css['preview-pic']}
+                     onClick={() => toggleMagnified(true)}
                 />
-                {isMagnified &&
-                    <div className={css['preview-pic-magnified-wrapper']}>
-                        <div className={css['preview-pic-magnified-container']}>
-                            <button onClick={()=>toggleMagnified(!isMagnified)} className={css['close-button']} aria-label="Close">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                            <div className={css['navigation-controls']}>
-                                <button onClick={goToPreviousPhoto} className={css['nav-arrow']} aria-label="Previous photo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="15 18 9 12 15 6"></polyline>
-                                    </svg>
-                                </button>
-                                <div className={css['magnified-image-container']}>
-                                    <img src={imageList && imageList.length > 0 ? imageList[currentPhotoIndex].src : photo.src}
-                                         alt="preview picture"
-                                         className={css['preview-pic-magnified']}
-                                    />
-                                    {imageList && imageList.length > 0 ? (
-                                        // Check if the current photo is in the basket
-                                        basket.photoList.find(p => p.src === imageList[currentPhotoIndex].src) ? (
-                                            <button 
-                                                onClick={() => removePhoto(imageList[currentPhotoIndex])}
-                                                className={`${css['add-to-basket-button']} ${css['added']}`}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                </svg>
-                                                <span>Toegevoegd</span>
-                                            </button>
-                                        ) : (
-                                            <button 
-                                                onClick={() => funcAddPhoto(imageList[currentPhotoIndex])}
-                                                className={css['add-to-basket-button']}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                </svg>
-                                                <span>Toevoegen</span>
-                                            </button>
-                                        )
-                                    ) : (
-                                        <button 
-                                            onClick={() => funcAddPhoto(photo)}
-                                            className={isSelected ? `${css['add-to-basket-button']} ${css['added']}` : css['add-to-basket-button']}
-                                        >
-                                            {isSelected ? (
-                                                <>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                    </svg>
-                                                    <span>Toegevoegd</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <circle cx="12" cy="12" r="10"></circle>
-                                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                                    </svg>
-                                                    <span>Toevoegen</span>
-                                                </>
-                                            )}
-                                        </button>
-                                    )}
-                                </div>
-                                <button onClick={goToNextPhoto} className={css['nav-arrow']} aria-label="Next photo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    }
-
-
-
             </div>
+
             <div>
                 <div>{photo.topPick}</div>
-
             </div>
+            
             <div className={css['button-wrapper']}>
-                <button onClick={()=>toggleMagnified(!isMagnified)} className={css['magnify-button']}>
+                <button onClick={() => toggleMagnified(true)} className={css['magnify-button']}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -198,8 +222,7 @@ export const PhotoTile = ({addToBasket, photo}) => {
                         <span>Toevoegen</span>
                     </button>
                 }
-                {
-                    isSelected &&
+                {isSelected &&
                     <div className={css['selected-wrapper']}>
                         <button onClick={photoTileRemoveHandler} className={css['remove-button']}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -217,7 +240,7 @@ export const PhotoTile = ({addToBasket, photo}) => {
                     </div>
                 }
             </div>
-
+            {magnifiedPortal}
         </div>
     )
 }

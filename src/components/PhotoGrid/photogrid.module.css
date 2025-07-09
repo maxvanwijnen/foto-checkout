@@ -1,6 +1,7 @@
 .photo-grid-wrapper {
-    flex-basis: 800px;
-    flex-grow: 1;
+    flex: 1;
+    padding: 20px;
+    width: 100%;
 }
 
 /* Masonry grid styles */
@@ -45,13 +46,13 @@
 }
 
 @media only screen and (max-width: 800px) {
-    .photo-grid {
-        flex-basis:auto;
-        padding-bottom: 200px;
+    .photo-grid-wrapper {
+        width: 100%;
+        padding: 10px;
     }
     
     .masonry-grid {
-        padding: 10px;
+        padding: 10px 0;
     }
     
     .masonry-column {
